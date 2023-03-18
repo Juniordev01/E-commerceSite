@@ -105,12 +105,12 @@ class shopController extends Controller
 
     public function add_to_wishlist($id)
     {
+        // return ($id);
         if(Auth::user())
         {
-            $already_added = wishlist::find($id);
-            if($already_added == null)
+            $already_added = wishlist::where('product_id',$id)->first();
+            if(empty($already_added))
             {
-
             $wishlist = new wishlist();
             $wishlist->product_id = $id;
             $wishlist->user_id = auth()->user()->id;
@@ -122,6 +122,7 @@ class shopController extends Controller
             }
             else
             {
+                return ("failed");
                 Alert::success('WishList', 'Product already added to wishlist');
                 return redirect()->back();
             }

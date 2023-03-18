@@ -13,22 +13,17 @@ class ClientHomeController extends Controller
     {
         $categories = DB::table('categories')->get();
         $products = DB::table('products')->get();
+        $wishlists = DB::table('wishlists')->get();
+        // return $wishlist;
         // return $products->count();
-        return view('frontend.index',compact('categories','products'));
+        return view('frontend.index',compact('categories','products','wishlists'));
     }
     public function index_search(Request $request)
     {
         $query = $request->search;
-        // $encryptParamerter = Crypt::encrypt($query);
-        // return $encryptParamerter;
         $products =product::where('ProductName','LIKE',"%$query%")->get();
-        // return $result;
         return view('frontend.index',compact('products'));
     }
-    public function add_to_wishList(Request $request,$id)
-    {
-        return("asdasda");
-        return $id;
-    }
+
 
 }

@@ -11,6 +11,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\categoryController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\shopController;
+use App\Http\Controllers\cartController;
 
 
 
@@ -107,5 +108,5 @@ Route::get('product_details/{id}',[shopController::class,'product_details']);
 Route::get('fetchAll',[shopController::class,'allproducts'])->name('fetchAll');
 Route::get('wishlist',[shopController::class,'wishlist']);
 Route::get('add_to_wishlist/{id}',[shopController::class,'add_to_wishlist']);
-
+Route::post('add_to_cart',[cartController::class,'add_to_cart']);
 

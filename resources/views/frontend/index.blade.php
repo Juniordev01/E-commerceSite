@@ -202,14 +202,13 @@
                                         {{ $product->Currencytype }} {{ $product->price }}
                                     </span>
                                 </div>
-                                {{-- href="{{ url('add_to_wishlist',$product->id) }}" --}}
                                 <div class="block2-txt-child2 flex-r p-t-3">
-                                    <a href="{{ 'add_to_wishlist/'.$product->id }}" class="add_to_wishlist">
-                                        <img class="icon-heart1 dis-block trans-04"
-                                            src="{{ asset('Frontend/images/icons/icon-heart-01.png') }}"  alt="ICON">
+                                    <a href="{{ 'add_to_wishlist/' . $product->id }}" class="add_to_wishlist">
+                                        <img class="icon-heart1 dis-block trans-04" id="add_to_wishlist"
+                                            src="{{ asset('Frontend/images/icons/icon-heart-01.png') }}" alt="ICON">
                                     </a>
                                     {{-- <a href="#" class="">
-                                    <img class="icon-heart2 dis-block trans-04 ab-t-l"
+                                        <img class="icon-heart2 dis-block trans-04 ab-t-l"
                                             src="{{ asset('Frontend/images/icons/icon-heart-02.png') }}" alt="ICON">
                                     </a> --}}
                                 </div>
@@ -399,4 +398,14 @@
         </div>
     </section>
 @endsection
+@section('script')
+    <script>
+        var heartIcon = document.getElementById('add_to_wishlist');
 
+        // Add a click event listener to the heart icon
+        heartIcon.addEventListener('click', function() {
+            // Toggle the color of the heart icon when it's clicked
+            heartIcon.style.color = heartIcon.style.color === 'red' ? 'black' : 'red';
+        });
+    </script>
+@endsection
