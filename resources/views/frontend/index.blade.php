@@ -1,5 +1,17 @@
 @extends('layouts.frontend.client-master')
 @section('content')
+    <style>
+        .icon-heart1 {
+            font-size: 20px;
+            text-decoration: none;
+            color: #333;
+            opacity: 0.3;
+        }
+
+        .block2-txt-child2:active {
+            color: #0056b3;
+        }
+    </style>
     <!-- Slider -->
     <section class="section-slide">
         <div class="wrap-slick1">
@@ -45,7 +57,7 @@
                             </div>
 
                             <div class="layer-slick1 animated visible-false" data-appear="slideInUp" data-delay="1600">
-                                <a href="product.html"
+                                <a href="{{ url('shop') }}"
                                     class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
                                     Shop Now
                                 </a>
@@ -70,7 +82,7 @@
                             </div>
 
                             <div class="layer-slick1 animated visible-false" data-appear="rotateIn" data-delay="1600">
-                                <a href="product.html"
+                                <a href="{{ url('shop') }}"
                                     class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
                                     Shop Now
                                 </a>
@@ -185,7 +197,7 @@
                             <div class="block2-pic hov-img0">
                                 <img src="{{ 'public/uploads/' . $product->productImage }}" alt="IMG-PRODUCT">
 
-                                <a href="#"
+                                <a href="{{ $product->id }}"
                                     class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1 quickview">
                                     Quick View
                                 </a>
@@ -203,14 +215,10 @@
                                     </span>
                                 </div>
                                 <div class="block2-txt-child2 flex-r p-t-3">
-                                    <a href="{{ 'add_to_wishlist/' . $product->id }}" class="add_to_wishlist">
-                                        <img class="icon-heart1 dis-block trans-04" id="add_to_wishlist"
-                                            src="{{ asset('Frontend/images/icons/icon-heart-01.png') }}" alt="ICON">
+                                    <a href="#" class="add_to_wishlist">
+                                        <i class="icon-heart1 dis-block trans-04 zmdi zmdi-favorite-outline"
+                                            id="add_to_wishlist"></i>
                                     </a>
-                                    {{-- <a href="#" class="">
-                                        <img class="icon-heart2 dis-block trans-04 ab-t-l"
-                                            src="{{ asset('Frontend/images/icons/icon-heart-02.png') }}" alt="ICON">
-                                    </a> --}}
                                 </div>
                             </div>
                         </div>
@@ -399,13 +407,16 @@
     </section>
 @endsection
 @section('script')
-    <script>
-        var heartIcon = document.getElementById('add_to_wishlist');
-
-        // Add a click event listener to the heart icon
-        heartIcon.addEventListener('click', function() {
-            // Toggle the color of the heart icon when it's clicked
-            heartIcon.style.color = heartIcon.style.color === 'red' ? 'black' : 'red';
-        });
-    </script>
+<script>
+    var link = document.getElementsByClassName("add_to_wishlist");
+    link.addEventListener("click", function(event) {
+        event.preventDefault(); // prevent the link from redirecting to another page
+        if (link.style.color === color) {
+            link.style.color = "red"; // change color to red on first click
+        } else {
+            link.style.color = color; // revert back to original color on second click
+        }
+    });
+</script>
 @endsection
+

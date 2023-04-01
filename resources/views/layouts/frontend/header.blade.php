@@ -44,7 +44,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
     </script>
-    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 
 </head>
 
@@ -78,8 +78,8 @@
                             <a class="flex-c-m trans-04 p-lr-25 " href="{{ url('login_') }}">{{ __('Login') }}</a>
 
 
-                            <a class="flex-c-m trans-04 p-lr-25" href="{{ url('register_') }}">{{ __('Register') }}</a>
-
+                            <a class="flex-c-m trans-04 p-lr-25"
+                                href="{{ url('register_') }}">{{ __('Register') }}</a>
                         @endif
 
                         <a href="#" class="flex-c-m trans-04 p-lr-25">
@@ -144,17 +144,35 @@
                             <i class="zmdi zmdi-search"></i>
                         </div>
 
-                        <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-                            data-notify="2">
-                            <i class="zmdi zmdi-shopping-cart"></i>
-                        </div>
+                        @if (Auth::check())
+                             <a href="{{ url('checkout') }}">
+                                <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
+                                    data-notify="{{ $cartCount->count() }}">
+                                    <i class="zmdi zmdi-shopping-cart"></i>
+                                </div>
+                            </a>
+                      @else
 
+                            <a href="{{ url('checkout') }}">
+                                <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
+                                    data-notify="">
+                                    <i class="zmdi zmdi-shopping-cart"></i>
+                                </div>
+                            </a>
+                          @endif
 
+                        @if (Auth::check())
                         <a href="{{ url('wishlist') }}"
-                            class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
-                            >
+                            class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="{{ $wishlistCount->count() }}">
                             <i class="zmdi zmdi-favorite-outline"></i>
                         </a>
+                        @else
+                        <a href="{{ url('wishlist') }}"
+                            class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti">
+                            <i class="zmdi zmdi-favorite-outline"></i>
+                        </a>
+                        @endif
+
                     </div>
                 </nav>
             </div>
@@ -277,7 +295,7 @@
     </header>
 
     <!-- Cart -->
-    <div class="wrap-header-cart js-panel-cart">
+    {{-- <div class="wrap-header-cart js-panel-cart">
         <div class="s-full js-hide-cart"></div>
 
         <div class="header-cart flex-col-l p-l-65 p-r-25">
@@ -309,37 +327,7 @@
                         </div>
                     </li>
 
-                    <li class="header-cart-item flex-w flex-t m-b-12">
-                        <div class="header-cart-item-img">
-                            <img src="{{ asset('Frontend/images/item-cart-02.jpg') }}" alt="IMG">
-                        </div>
 
-                        <div class="header-cart-item-txt p-t-8">
-                            <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-                                Converse All Star
-                            </a>
-
-                            <span class="header-cart-item-info">
-                                1 x $39.00
-                            </span>
-                        </div>
-                    </li>
-
-                    <li class="header-cart-item flex-w flex-t m-b-12">
-                        <div class="header-cart-item-img">
-                            <img src="{{ asset('Frontend/images/item-cart-03.jpg') }}" alt="IMG">
-                        </div>
-
-                        <div class="header-cart-item-txt p-t-8">
-                            <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-                                Nixon Porter Leather
-                            </a>
-
-                            <span class="header-cart-item-info">
-                                1 x $17.00
-                            </span>
-                        </div>
-                    </li>
                 </ul>
 
                 <div class="w-full">
@@ -361,4 +349,4 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}

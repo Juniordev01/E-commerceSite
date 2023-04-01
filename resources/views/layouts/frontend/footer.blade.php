@@ -158,9 +158,9 @@
 
 <!-- Modal1 -->
 
-
+@include('sweetalert::alert')
 <!--===============================================================================================-->
-<script src="{{ asset('Frontend/vendor/jquery/jquery-3.2.1.min.js') }}"></script>
+{{-- <script src="{{ asset('Frontend/vendor/jquery/jquery-3.2.1.min.js') }}"></script> --}}
 <!--===============================================================================================-->
 <script src="{{ asset('Frontend/vendor/animsition/js/animsition.min.js') }}"></script>
 <!--===============================================================================================-->

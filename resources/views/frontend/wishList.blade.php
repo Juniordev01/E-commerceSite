@@ -1,11 +1,10 @@
 @extends('layouts.frontend.client-master')
 @section('content')
-<style>
-    .main
-    {
-        margin-top: 70px;
-    }
-</style>
+    <style>
+        .main {
+            margin-top: 70px;
+        }
+    </style>
     <!-- breadcrumb -->
     <div class="container main ">
         <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
@@ -36,18 +35,22 @@
                                     <th class="column-5">Cart</th>
                                     <th class="column-5">Remove</th>
                                 </tr>
-
-                                <tr class="table_row">
-                                    <td class="column-1">
-                                        <div class="how-itemcart1">
-                                            <img src="{{ asset('Frontend/images/item-cart-01.jpg') }}" alt="IMG">
-                                        </div>
-                                    </td>
-                                    <td class="column-2">Fresh Strawberries</td>
-                                    <td class="column-3">$ 36.00</td>
-                                    <td class="column-5"><a href=""><i style="font-size: 25px;" class="zmdi zmdi-shopping-cart"></i></a></td>
-                                    <td class="column-5"><a href=""><i style="font-size: 25px;" class="zmdi zmdi-close"></i></a></td>
-                                </tr>
+                                @foreach ($products as $product)
+                                    <input type="hidden" name="product_id" id="product_id" class="product_id" value="{{ $product->id }}">
+                                    <tr class="table_row">
+                                        <td class="column-1">
+                                            <div class="how-itemcart1">
+                                                <img src="{{ 'public/uploads/' . $product->productImage }}" alt="IMG">
+                                            </div>
+                                        </td>
+                                        <td class="column-2">{{ $product->ProductName }}</td>
+                                        <td class="column-3">{{ $product->Currencytype }} {{ $product->price }}</td>
+                                        <td class="column-5"><a href="{{ url('product_details', $product->id) }}"><i
+                                                    style="font-size: 25px;" class="zmdi zmdi-shopping-cart"></i></a></td>
+                                        <td class="column-5"><a href="{{ url('product_remove_from_wishlist',$product->id) }}"><i data-value={{ $product->id }}
+                                                    style="font-size: 25px;" class="zmdi zmdi-close"></i></a></td>
+                                    </tr>
+                                @endforeach
                             </table>
                         </div>
 

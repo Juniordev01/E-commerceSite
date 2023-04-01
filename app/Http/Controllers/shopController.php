@@ -8,6 +8,7 @@ use App\Models\category;
 use App\Models\wishlist;
 use App\Models\sub_category;
 use App\Models\product;
+use App\Models\brand;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
 class shopController extends Controller
@@ -28,8 +29,8 @@ class shopController extends Controller
        ->join('products','categories.id','products.Category_Id')
        ->where('Category_name','Women')
        ->get();
-        // $products = product::with('category')->with('sub_category')->get();
-        return view('frontend.shop',compact('products'));
+        $brands = brand::all();
+        return view('frontend.shop',compact('products','brands'));
     }
     public function men_items()
     {
@@ -50,9 +51,9 @@ class shopController extends Controller
         ->join('categories','categories.id', '=','products.Category_Id')
         ->join('sub_categories','products.subCatory_Id','=','sub_categories.id')
         ->get();
-
+        $brands = brand::all();
         // $products = product::with('category')->with('sub_category')->get();
-        return view('frontend.shop',compact('products'));
+        return view('frontend.shop',compact('products','brands'));
     }
 
     public function product_details($id)
@@ -100,7 +101,9 @@ class shopController extends Controller
 
     public function wishlist()
     {
-        return view('frontend.wishList');
+        $product_id = wishlist::pluck('product_id');
+        $products = product::whereIN('id',$product_id)->get();
+        return view('frontend.wishList',compact('products'));
     }
 
     public function add_to_wishlist($id)
@@ -131,6 +134,50 @@ class shopController extends Controller
         {
             return view('Admin.login');
         }
+    }
+
+    public function removeProduct($id)
+    {
+        $wishlist_pro_remove = wishlist::where('product_id',$id)->first();
+        if($wishlist_pro_remove)
+        {
+            $wishlist_pro_remove->delete();
+            return redirect()->back();
+        }
+    }
+    public function searchItem(Request $request)
+    {
+        $query = $request->searchProduct;
+        $products =product::where('ProductName','LIKE',"%$query%")->get();
+        return view('frontend.shop',compact('products'));
+    }
+    public function shopFilter($param)
+    {
+        dd($param);
+        // if($param == "All")
+        // {
+
+        //     $products = product::all();
+        //     if($products)
+        //     {
+        //         return response()->json([
+        //             "products"=>$products
+        //         ]);
+        //     }
+        // }
+    }
+
+    public function priceFilter(Request $request)
+    {
+        $request->validate([
+            'min' => 'required',
+            'max' => 'required',
+        ]);
+        $min =  $request->min;
+        $max =  $request->max;
+
+        $products = product::whereBetween('price',[$min,$max])->get();
+        dd($products);
     }
 }
 

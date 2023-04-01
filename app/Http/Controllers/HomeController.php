@@ -43,20 +43,20 @@ class HomeController extends Controller
         // return $count;
         // $users = User::all();
         $users = User::select(DB::raw("COUNT(*) as count"), DB::raw("MONTHNAME (created_at) as month_name"))
-                    
+
                     ->groupBy(DB::raw("month_name"))
-                    
+
                     ->pluck('count', 'month_name');
 
         $Products = product::select(DB::raw("COUNT(*) as count"), DB::raw("MONTHNAME (created_at) as month_name"))
-                    
+
          ->groupBy(DB::raw("month_name"))
-                    
+
         ->pluck('count', 'month_name');
         // return $Products;
         $labels2 = $Products->keys();
         $data2 = $Products->values();
-        
+
         $labels = $users->keys();
         $data = $users->values();
         return view('admin.index',compact('labels', 'data','labels2','data2','count','users'));

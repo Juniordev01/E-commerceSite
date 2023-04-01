@@ -11,7 +11,7 @@
     {{-- <link rel="stylesheet" href="{{ asset('/Admin/css/style.css') }}"> --}}
     <link rel="stylesheet" href="{{ asset('/Admin/css/all.css') }}">
     {{-- <link rel="stylesheet" href="{{ asset('/Admin/css/components.css') }}"> --}}
-    
+
     <link rel="stylesheet" href="{{asset('Admin/css/app.min.css')}}">
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{asset('Admin/css/style.css')}}">
@@ -34,7 +34,7 @@
     {{-- Char Js  --}}
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    
+
 </head>
 {{-- Roles Form Css --}}
 

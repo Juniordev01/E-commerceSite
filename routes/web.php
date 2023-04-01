@@ -12,6 +12,7 @@ use App\Http\Controllers\categoryController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\shopController;
 use App\Http\Controllers\cartController;
+use App\Http\Controllers\PaymentController;
 
 
 
@@ -108,5 +109,14 @@ Route::get('product_details/{id}',[shopController::class,'product_details']);
 Route::get('fetchAll',[shopController::class,'allproducts'])->name('fetchAll');
 Route::get('wishlist',[shopController::class,'wishlist']);
 Route::get('add_to_wishlist/{id}',[shopController::class,'add_to_wishlist']);
-Route::post('add_to_cart',[cartController::class,'add_to_cart']);
+Route::post('add_to_cart',[cartController::class,'add_to_cart'])->name('form.submit');
+Route::get('checkout',[cartController::class,'checkout']);
+Route::post('searchQuery',[shopController::class,'searchItem']);
+// Route::get('priceFilter/{param}',[shopController::class,'shopFilter']);
+Route::any('priceFilter',[shopController::class,'priceFilter']);
+Route::get('product_remove_from_wishlist/{id}',[shopController::class,'removeProduct']);
+
+// Checkhout Routes:
+Route::get('stripeCheckout/{total}',[PaymentController::class,'stripePayment']);
+Route::post('stripePayout',[PaymentController::class,'payment']);
 

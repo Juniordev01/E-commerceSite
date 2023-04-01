@@ -50,7 +50,7 @@ class LoginController extends Controller
                 $updateProfile->user_id = Auth::user()->id;
                 $updateProfile->save();
                 return view('Admin.Profile',compact('Profile'));
-            }   
+            }
             return view('Admin.index');
         }
         else

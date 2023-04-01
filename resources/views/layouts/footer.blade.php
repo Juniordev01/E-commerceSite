@@ -15,6 +15,7 @@
 <script src="{{ asset('/Admin/js/page/index.js') }}"></script>
 <!-- Template JS File -->
 <script src="{{ asset('/Admin/js/scripts.js') }}"></script>
+{{-- Font Awesome --}}
 <!-- Custom JS File -->
 <script src="{{ asset('/Admin/js/custom.js') }}"></script>
 @include('sweetalert::alert')

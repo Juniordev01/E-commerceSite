@@ -28,7 +28,7 @@ class categoryController extends Controller
         $store->Category_description = $request->description;
         if($store->save())
         {
-            
+
             Alert::success('Category', 'Category Added Successfully');
             return redirect()->back();
         }
@@ -47,19 +47,19 @@ class categoryController extends Controller
 
     public function StoresubCategory(Request $request)
     {
-        
+
         $request->validate([
             'subCategory_name' => 'required|unique:sub_categories,subCategoryName|max:255|regex:/^[a-z A-Z]+$/',
             'description' => 'required',
             'parentCategory' => 'required',
         ]);
-        
+
         $store = new sub_category();
         $store->subCategoryName	 = $request->subCategory_name	;
         $store->subCategoryDescription = $request->description;
         $store->category_id = $request->parentCategory;
         if($store->save())
-        {  
+        {
             Alert::success('Category', 'Category Added Successfully');
             return redirect()->back();
         }
@@ -77,7 +77,7 @@ class categoryController extends Controller
         if($updateChildCategory->update())
         {
             Alert::success('Sub category Operation', 'Sub Category Updated Successfully');
-            return redirect()->back();  
+            return redirect()->back();
         }
         else
         {
@@ -91,7 +91,7 @@ class categoryController extends Controller
         if($destroy->delete())
         {
             Alert::success('category Operation', 'Category Deleted Successfully');
-            return redirect()->back();  
+            return redirect()->back();
         }
         else
         {
@@ -105,7 +105,7 @@ class categoryController extends Controller
         if($destroy->delete())
         {
             Alert::success('category Operation', 'Category Deleted Successfully');
-            return redirect()->back();  
+            return redirect()->back();
         }
         else
         {
@@ -114,14 +114,14 @@ class categoryController extends Controller
     }
 
     public function updateCategory(Request $request)
-    {  
+    {
         $UpdateCategory = category::find($request->id);
         $UpdateCategory->Category_name = $request->Category_name;
         $UpdateCategory->Category_description = $request->description;
         if($UpdateCategory->update())
         {
             Alert::success('category Operation', 'Category Updated Successfully');
-            return redirect()->back();  
+            return redirect()->back();
         }
         else
         {

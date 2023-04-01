@@ -84,10 +84,10 @@
                         </p>
 
                         <!--  -->
-                        <form action="{{ url('add_to_cart') }}" method="post">
+                        <form id="my-form" method="post">
                             @csrf
                             <div class="p-t-33">
-                                <input type="hidden" name="id" value="{{ $product->id }}">
+                                <input type="hidden" name="id" id="id" value="{{ $product->id }}">
                                 <div class="flex-w flex-r-m p-b-10">
                                     <div class="size-203 flex-c-m respon6">
                                         Size
@@ -95,7 +95,7 @@
 
                                     <div class="size-204 respon6-next text-left">
                                         <div class="rs1-select2 bor8 bg0">
-                                            <select class="js-select2" name="size">
+                                            <select class="js-select2" id="size" name="size">
                                                 <option value=" {{ $product->size }}">{{ $product->size }}</option>
 
                                             </select>
@@ -127,16 +127,18 @@
                                             </div>
 
                                             <input class="mtext-104 cl3 txt-center num-product" type="number"
-                                                 name="quantity" value="1">
+                                                name="quantity" id="quantity" value="1">
 
                                             <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
                                                 <i class="fs-16 zmdi zmdi-plus"></i>
                                             </div>
                                         </div>
+                                        <a>
+                                            <button
+                                                class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 ">
+                                                Add to cart
+                                            </button>
 
-                                        <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 ">
-                                            Add to cart
-                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -424,4 +426,27 @@
             </div>
         </div>
     </section>
+@endsection
+@section('script')
+    <script>
+        $('#my-form').on('submit', function(event) {
+            event.preventDefault();
+            var formData = new FormData(this);
+            console.log(formData);
+            $.ajax({
+                url: '{{ route('form.submit') }}',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    swal("Cart Operation", "Product Added To Cart!", "success");
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    // handle error
+                    swal("Cart Operation", "Product Added In Your Cart", "success");
+                }
+            });
+        });
+    </script>
 @endsection

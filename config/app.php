@@ -197,8 +197,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\headerservices::class,
         Spatie\Permission\PermissionServiceProvider::class,
-
-
+        App\Providers\CartServiceProvider::class,
     ],
 
     /*

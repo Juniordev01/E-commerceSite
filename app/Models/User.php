@@ -9,10 +9,12 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use App\Models\profile;
+use App\Models\cart;
+use Laravel\Cashier\Billable;
 use Spatie\Permission\Models\Role;
 class User extends Authenticatable
 {
-    use  HasApiTokens, HasFactory, Notifiable,HasRoles;
+    use  HasApiTokens, HasFactory, Notifiable,HasRoles,Billable;
 
     /**
      * The attributes that are mass assignable.
@@ -49,10 +51,20 @@ class User extends Authenticatable
     {
         return $this->hasOne(profile::class);
     }
-    
+
     public function Role()
     {
         return $this->belongsToMany(Role::class,'model_has_roles');
+    }
+
+    public function cart()
+    {
+        return $this->hasMany(cart::class,'user_id');
+    }
+
+    public function product()
+    {
+        return $this->hasMany(product::class,'product_id');
     }
 
 }
