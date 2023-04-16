@@ -1,7 +1,7 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="index.html"> 
+            <a href="index.html">
                 {{-- <img alt="image"
                     src="{{ asset('Admin/img/logo.png class="header-logo') }}" />  --}}
                     <span
@@ -41,6 +41,12 @@
             <li>
                 <a href="{{ url('brands') }}" class=" nav-link "><i
                         data-feather="command"></i><span>Brands</span></a>
+            </li>
+            @endhasanyrole
+            @hasanyrole('Super-Admin|Admin')
+            <li>
+                <a href="{{ url('productCoupon') }}" class=" nav-link "><i
+                        data-feather="command"></i><span>Coupon</span></a>
             </li>
             @endhasanyrole
             {{-- <li class="dropdown">

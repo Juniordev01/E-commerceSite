@@ -33,8 +33,8 @@ class CartServiceProvider extends ServiceProvider
     // Schema::defaultStringLength(191);
        $wishlistCount=DB::table('wishlists')->get();
        View::share('wishlistCount',$wishlistCount);
-
-       $cartCount=DB::table('carts')->get();
+        $userId = Auth::id();       ;
+       $cartCount=DB::table('carts')->where('user_id',$userId)->get();
        View::share('cartCount',$cartCount);
     }
 }

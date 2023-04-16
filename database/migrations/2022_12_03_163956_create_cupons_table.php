@@ -15,10 +15,9 @@ return new class extends Migration
     {
         Schema::create('cupons', function (Blueprint $table) {
             $table->id();
-            $table->integer('amount');  
+            $table->string('name');
+            $table->integer('amount');
             $table->date('valid_until');
-            $table->unsignedbiginteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products');
             $table->timestamps();
         });
     }

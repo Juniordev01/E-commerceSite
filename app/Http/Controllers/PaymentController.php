@@ -67,8 +67,7 @@ class PaymentController extends Controller
         }
 
         $user_id=auth()->user()->id;
-        $clear_checkout = DB::table('carts')->get()->where('user_id',$user_id);
-
+        $clear_checkout = DB::table('carts')->where('user_id',$user_id)->get();
         $deleted = DB::table('carts')->where('user_id', '=', $user_id)->delete();
         Alert::success('Payment', 'Your Payment was completed Successfully');
         return response()->redirectTo('/');

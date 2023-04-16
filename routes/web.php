@@ -13,6 +13,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\shopController;
 use App\Http\Controllers\cartController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\couponController;
 
 
 
@@ -96,6 +97,14 @@ Route::post('UpdateUser',[UserController::class,'Update'])->middleware('auth','r
 // Notificaiton
 Route::get('mark_as_read/{id}',[NotificationController::class,'mark_as_read']);
 // Mail
+// Coupon productCoupon
+Route::get('productCoupon/',[couponController::class,'couponIndex']);
+Route::post('addCoupon/',[couponController::class,'createCoupon']);
+Route::post('updateCoupon/',[couponController::class,'updateCoupon']);
+Route::get('remove_coupon/{id}',[couponController::class,'destroy']);
+Route::post('cuoponCode',[couponController::class,'discount']);
+
+
 
 
 
@@ -115,6 +124,14 @@ Route::post('searchQuery',[shopController::class,'searchItem']);
 // Route::get('priceFilter/{param}',[shopController::class,'shopFilter']);
 Route::any('priceFilter',[shopController::class,'priceFilter']);
 Route::get('product_remove_from_wishlist/{id}',[shopController::class,'removeProduct']);
+Route::get('Accessories',[shopController::class,'Accessories']);
+Route::get('brand_filter/{id}',[shopController::class,'brandFilter']);
+Route::get('perfumes',[shopController::class,'perfumes']);
+
+
+
+
+
 
 // Checkhout Routes:
 Route::get('stripeCheckout/{total}',[PaymentController::class,'stripePayment']);

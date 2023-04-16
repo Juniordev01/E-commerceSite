@@ -45,6 +45,8 @@
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
     </script>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 
 </head>
 
@@ -154,7 +156,7 @@
                       @else
 
                             <a href="{{ url('checkout') }}">
-                                <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
+                                <div class="iconf-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
                                     data-notify="">
                                     <i class="zmdi zmdi-shopping-cart"></i>
                                 </div>
@@ -256,7 +258,7 @@
                 </li>
 
                 <li>
-                    <a href="product.html">Shop nowwwwwww</a>
+                    <a href="product.html">Shop noww</a>
                 </li>
 
                 <li>

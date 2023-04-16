@@ -1,12 +1,8 @@
 @extends('layouts.frontend.client-master')
 @section('content')
-    <style>
-        .main {
-            margin-top: 70px;
-        }
-    </style>
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <!-- breadcrumb -->
-    <div class="container main ">
+    {{-- <div class="container main ">
         <div class="bread-crumb flex-w p-l-25 p-r-15 p-t-30 p-lr-0-lg">
             <a href="{{ url('/') }}" class="stext-109 cl8 hov-cl1 trans-04">
                 Home
@@ -17,13 +13,17 @@
                 Shoping Cart
             </span>
         </div>
-    </div>
+    </div> --}}
 
     <!-- Shoping Cart -->
     <div class="bg0 p-t-35 p-b-85 m-4">
         <div class="container-xxl m-4">
+            @if (count($CartItems) >1)
+
+
             <div class="row ">
                 <div class="col-lg-7 mx-3  m-b-50">
+
                     <div class="m-l-25 m-r--38 m-lr-0-xl">
                         <div class="wrap-table-shopping-cart">
                             <table class="table-shopping-cart">
@@ -72,23 +72,30 @@
                                 @endforeach
                             </table>
                         </div>
+                        <form action="{{ url('cuoponCode') }}" method="post">
+                            @csrf
+                            <div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
+                                <div class="flex-w flex-m m-r-20 m-tb-5">
+                                    <input class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" type="text"
+                                        name="coupon" placeholder="Coupon Code">
 
-                        <div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
-                            <div class="flex-w flex-m m-r-20 m-tb-5">
-                                <input class="stext-104 cl2 plh4 size-117 bor13 p-lr-20 m-r-10 m-tb-5" type="text"
-                                    name="coupon" placeholder="Coupon Code">
+                                    <div
+                                        class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5">
+                                        <button>Apply coupon</button>
+                                    </div>
+                                </div>
 
-                                <div
-                                    class="flex-c-m stext-101 cl2 size-118 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-5">
-                                    Apply coupon
+                                <div class="flex-c-m stext-101  p-lr-15 trans-04 pointer m-tb-10">
+
+                                    @if (session()->get('coupon'))
+                                        {{$total = $total - session()->get('coupon') }}
+                                    @else
+                                        Total : {{ $total }}
+                                    @endif
+
                                 </div>
                             </div>
-
-                            {{-- <div
-                                class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
-                                Update Cart
-                            </div> --}}
-                        </div>
+                        </form>
                     </div>
                 </div>
                 <div class="col-lg-4 mx-3  m-b-50">
@@ -107,31 +114,34 @@
                                             <p class="alert alert-{{ $status }}">{{ Session::get($status) }}</p>
                                         @endif
                                     @endforeach
-                                    <form role="form" method="POST" id="paymentForm" action="{{ url('/stripePayout') }}">
+                                    <form role="form" method="POST" id="paymentForm"
+                                        action="{{ url('/stripePayout') }}">
                                         @csrf
-                                        <input type="hidden" name="totalAmount"  value="{{ $total }}">
+
+
+                                        <input type="hidden" name="totalAmount" value="{{ $total }}">
                                         <div class="form-group">
                                             <label for="username">Full name (on the card)</label>
                                             <input type="text" class="form-control" name="fullName"
                                                 placeholder="Full Name">
-                                                <span>
-                                                    @error('fullName')
-                                                        <div class="text-danger">{{ $message }}</div>
-                                                    @enderror
-                                                </span>
+                                            <span>
+                                                @error('fullName')
+                                                    <div class="text-danger">{{ $message }}</div>
+                                                @enderror
+                                            </span>
                                         </div>
                                         <div class="form-group">
                                             <label for="cardNumber">Card number</label>
                                             <div class="input-group">
                                                 <input type="text" class="form-control" name="cardNumber"
                                                     placeholder="Card Number">
-                                                    <span>
-                                                        @error('cardNumber')
-                                                            <div class="text-danger">{{ $message }}</div>
-                                                        @enderror
-                                                    </span>
-                                                <div class="input-group-append">
-                                                    <span class="input-group-text text-muted">
+                                                <span>
+                                                    @error('cardNumber')
+                                                        <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
+                                                </span>
+                                                <div class="input-group-append d-flex">
+                                                    <span class="input-group-text text-muted py-3">
                                                         <i class="fab fa-cc-visa fa-lg pr-1"></i>
                                                         <i class="fab fa-cc-amex fa-lg pr-1"></i>
                                                         <i class="fab fa-cc-mastercard fa-lg"></i>
@@ -190,6 +200,17 @@
                     </article>
                 </div>
             </div>
+            @else
+            <div class="row">
+                <div class="col-lg-12 text-center" >
+                    <div class="d-flex justify-content-center my-2">
+                        <lottie-player class="" src="https://assets4.lottiefiles.com/packages/lf20_qh5z2fdq.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;"  loop  autoplay></lottie-player>
+                    </div>
+                     <h6>Your Cart is Empty</h6>
+                    <p>Add something to make me happy :)</p>
+                </div>
+            </div>
+            @endif
         </div>
     </div>
 

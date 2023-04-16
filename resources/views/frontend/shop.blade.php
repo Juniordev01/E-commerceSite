@@ -20,17 +20,17 @@
                         All Products
                     </button>
 
-                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".women">
+                    <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 text-decoration-none" href="{{ url('women') }}" >
                         Women
-                    </button>
+                    </a>
 
-                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".men">
+                    <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 text-decoration-none" href="{{ url('men') }}">
                         Men
-                    </button>
+                    </a>
 
-                    <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".bag">
-                        Bag
-                    </button>
+                    <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 text-decoration-none" href="{{ url('perfumes') }}">
+                        Perfumes
+                    </a>
 
                     <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".shoes">
                         Shoes
@@ -86,7 +86,7 @@
                                 <ul>
                                     @foreach ($brands as $brand)
                                         <li class="p-b-6">
-                                            <a href="#" class="filter-link stext-106 trans-04">
+                                            <a href="{{ url('brand_filter',$brand->id) }}" class="filter-link stext-106 trans-04">
                                                 {{ $brand->brandName }}
                                             </a>
                                         </li>
@@ -428,11 +428,11 @@
             </div>
 
             <!-- Load more -->
-            <div class="flex-c-m flex-w w-full p-t-45">
+            {{-- <div class="flex-c-m flex-w w-full p-t-45">
                 <a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
                     Load More
                 </a>
-            </div>
+            </div> --}}
         </div>
     </div>
 @endsection

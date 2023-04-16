@@ -27,12 +27,13 @@ class ProductManagementController extends Controller
         $categoryList = category::all();
         $brands = brand::all();
         $products = product::all();
+
         return view('Admin.products',compact('categoryList','subcategoryList','brands','products'));
     }
     public function storeProduct(Request $request)
     {
         $request->validate([
-            'product_name' => 'required|unique:products,ProductName|max:255|regex:/^[a-z A-Z 1-9]+$/',
+            'product_name' => 'required|unique:products,ProductName|max:255|regex:/^[a-zA-Z0-9\s\-]+$/',
             'description' => 'required',
             'amount' => 'required',
             'type' => 'required',

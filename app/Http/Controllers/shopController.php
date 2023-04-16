@@ -20,11 +20,6 @@ class shopController extends Controller
     }
     public function women_items()
     {
-        // sub_categories
-        // $products = DB::table('products')
-        // ->join('categories','categories.id', '=','products.Category_Id')
-        // ->join('sub_categories','products.subCatory_Id','=','sub_categories.id')
-        // ->get();
         $products = DB::table('categories')
        ->join('products','categories.id','products.Category_Id')
        ->where('Category_name','Women')
@@ -38,19 +33,32 @@ class shopController extends Controller
        ->join('products','categories.id','products.Category_Id')
        ->where('Category_name','Men')
        ->get();
-        // $products = category::with('product')->where('Category_name','Men')->get();
-        // return $products;
+       $brands = brand::all();
+        return view('frontend.shop',compact('products','brands'));
+    }
 
-        // $products = product::with('category')->with('sub_category')->get();
-        return view('frontend.shop',compact('products'));
+    public function Accessories()
+    {
+        $products = Product::with('brand', 'category')->whereHas('category' ,function ($query){
+            $query->where('Category_name', 'accessories');
+        })->get();
+        $brands = brand::all();
+        return view('frontend.shop',compact('products','brands'));
+    }
+
+    public function perfumes()
+    {
+        $products = product::whereHas('category',function($query)
+        {
+            $query->where('Category_name','accessories');})->whereHas('sub_category',function($query){
+            $query->where('subCategoryName','Perfumes');})->where('isActive','Active')->get();
+            $brands = brand::all();
+        return view('frontend.shop',compact('products','brands'));
     }
 
     public function shop_items()
     {
-        $products = DB::table('products')
-        ->join('categories','categories.id', '=','products.Category_Id')
-        ->join('sub_categories','products.subCatory_Id','=','sub_categories.id')
-        ->get();
+        $products = product::with('brand','category')->get();
         $brands = brand::all();
         // $products = product::with('category')->with('sub_category')->get();
         return view('frontend.shop',compact('products','brands'));
@@ -58,7 +66,7 @@ class shopController extends Controller
 
     public function product_details($id)
     {
-        // $product = product::with('category')->find($id);
+        $product = product::find($id);
         $product = DB::table('products')
         ->where('id',$id)
         ->first();
@@ -177,7 +185,18 @@ class shopController extends Controller
         $max =  $request->max;
 
         $products = product::whereBetween('price',[$min,$max])->get();
-        dd($products);
+        $brands = brand::all();
+        return view('frontend.shop',compact('products','brands'));
+
+    }
+
+    public function brandFilter($id)
+    {
+        $brand_id =  brand::where('id',$id)->pluck('id');
+        $products = product::where('brand_id',$brand_id)->get();
+        return $products;
+        $brands = brand::all();
+        return view('frontend.shop',compact('products','brands'));
     }
 }
 

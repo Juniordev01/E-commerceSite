@@ -51,6 +51,9 @@
                                         </a>
                                     </div>
                                 </div>
+                                @isset($product->productImage1)
+
+
                                 @foreach (json_decode($product->productImage1) as $images)
                                     <div class="item-slick3" data-thumb='{{ '/public/uploads/' . $images }}'>
                                         <div class="wrap-pic-w pos-relative">
@@ -63,7 +66,7 @@
                                         </div>
                                     </div>
                                 @endforeach
-
+                                @endisset
                             </div>
                         </div>
                     </div>
